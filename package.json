@@ -54,6 +54,10 @@
     "requirejs": "*",
     "rollup": "*",
     "rollup-plugin-babel": "*",
+    "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-watch": "*"
+  },
+  "dependencies": {
+    "request-frame": "^1.5.3"
   }
 }
