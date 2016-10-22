@@ -34,8 +34,9 @@
 ## Aim
 - 4d is a tiny powerhouse, and will remain tiny.
 - 4d aims to improve common timing requirements in a clean, lightweight and modular way.
-- 4d stands for the fourth dimension which is considered as **time**
-- 4d features a set of chosen functions that are sometimes overbloated, underperforming or not well implemented.
+- 4d aims to provide a better feature implementations than alternatives.
+
+_(4d === fourth dimension === t)_
 
 ## Compatability
 4d Is atleast compatible with IE8 +
@@ -65,5 +66,6 @@
 [Click here to see the demo]()
 
 
-[MIT](https://github.com/julienetie/hypertext/blob/master/LICENSE)
+[MIT](https://github.com/envidia/4d/blob/master/LICENSE)
+
 Copyright (c) 2016 Julien Etienne
