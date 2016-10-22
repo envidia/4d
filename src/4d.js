@@ -1,13 +1,21 @@
 import requestFrame from 'request-frame';
-
-console.log('4d');
-console.log(requestFrame);
-
-const $4d = {};
-
-$4d.request
-$4d.cancel
-$4d.requestNative = null;
+import once from 'run-once';
+import timeout from 'set-animation-frame';
+import interval from 'set-animation-interval';
+import volve from 'volve';
+import windowResize from '../resizilla.es';
 
 
-export default $4d;
+const $4d = {
+    windowResize,
+    debounce: volve.debounce,
+    throttle: volve.throttle,
+    once,
+    timeout,
+    interval,
+    request: requestFrame('request'),
+    cancel: requestFrame('cancel'),
+    requestNative: () => {requestFrame('native');}
+}; 
+ 
+export default $4d; 

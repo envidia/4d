@@ -8,9 +8,9 @@
     "bump": "gulp bump",
     "header": "gulp",
     "build": "rollup -c rollup/rollup.config.umd.js && rollup -c rollup/rollup.config.es.js",
-    "watch": "rollup -c rollup/rollup.config.umd.js -c --watch",
+    "watch": "rollup -c rollup/rollup.config.umd.js --watch",
     "test": "./node_modules/.bin/http-server ./ -p 9999",
-    "dummy": "wzrd  dummy.js | wtch | garnish"
+    "play": "wzrd  play.js | wtch | garnish"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "babel-cli": "*",
     "babel-preset-es2015": "*",
     "babel-preset-es2015-rollup": "^1.2.0",
+    "browserify": "^13.1.0",
     "chai": "*",
     "gulp": "^3.9.1",
     "gulp-bump": "*",
@@ -51,6 +52,7 @@
     "gulp-header": "*",
     "gulp-rename": "*",
     "http-server": "*",
+    "js-size": "^2.0.0",
     "requirejs": "*",
     "rollup": "*",
     "rollup-plugin-babel": "*",
@@ -58,6 +60,11 @@
     "rollup-watch": "*"
   },
   "dependencies": {
-    "request-frame": "^1.5.3"
+    "request-frame": "^1.5.3",
+    "resizilla": "^0.6.2",
+    "run-once": "^1.0.0",
+    "set-animation-frame": "^0.1.1",
+    "set-animation-interval": "^0.0.2",
+    "volve": "^0.0.2"
   }
 }

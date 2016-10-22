@@ -1,7 +1,7 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-    (global.$4d = factory());
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.$4d = factory());
 }(this, (function () { 'use strict';
 
 /**
@@ -224,12 +224,293 @@ function requestFrame(type) {
     return requestFrameMain;
 }
 
-console.log('4d');
-console.log(requestFrame);
+/**
+ * Pass a condition once with a given reference.
+ * @param {string} reference - A unique reference per conditon.
+ * @return {Boolean}
+ */
+function once(reference) {
+    if (!once.prototype.references) {
+        once.prototype.references = {};
+    }
+    // Store reference if dosen't exist.
+    if (!once.prototype.references.hasOwnProperty(reference)) {
+        once.prototype.references[reference] = null;
+        return true;
+    } else {
+        return false;
+    }
+}
 
-var $4d = {};
+/**
+ *  set-animation-frame - Delay function calls without setTimeout.
+ *     License:  MIT
+ *      Copyright Julien Etienne 2016 All Rights Reserved.
+ *        github:  https://github.com/julienetie/set-animation-frame
+ *‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+ */
 
-$4d.requestNative = null;
+/**
+ * @param {Function} callback
+ * @param {Number} delay
+ */
+var setAnimationFrame = function setAnimationFrame(callback, delay) {
+  var duration = 0;
+  var terminate = false;
+  var requestId;
+
+  /**
+   * The duration increments until it satisfys the delay.
+   * Once the delay is ready to be terminated, the requestID
+   * is returned. Whilst unsatisfied requestAnimationFrame
+   * calls the loop with the incremented timestamp
+   */
+  function loop(timestamp) {
+    if (!duration) {
+      duration = timestamp;
+    }
+
+    if (timestamp > duration + delay && !terminate) {
+      if (callback) callback(timestamp);
+      terminate = true;
+    } else {
+      requestId = requestAnimationFrame(loop);
+    }
+  }
+
+  /**
+   * Start the loop. 
+   */
+  loop(1);
+
+  /**
+   * Returns the timestamp relative to the navigationStart attribute of the 
+   * PerformanceTiming interface
+   * @return {Number} - DOMHighResTimeStamp
+   */
+  return requestId;
+};
+
+/**
+ *  set-animation-interval - Repeatedly call a function without setInterval,
+ *    call a function by approximate frames per second.
+ *     License:  MIT
+ *      Copyright Julien Etienne 2016 All Rights Reserved.
+ *        github:  https://github.com/julienetie/set-animation-interval
+ *‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+ */
+
+/**
+ * @param {Function} - Callback.
+ * @param {Number}   - Delay in milliseconds or frames per second.
+ * @param {Boolean}  - use FPS.
+ */
+function setAnimationInterval(callback, delay, useFPS) {
+  var fPSTimeStamp = 0;
+  var interval = useFPS ? 1000 / delay : delay;
+  var requestId = void 0;
+
+  /**
+   * Iterates the call back.
+   * Compare the timestamp.
+   * @return {Number} - DOMHighResTimeStamp.
+   */
+  (function loopCallback(timestamp) {
+    if (timestamp > fPSTimeStamp) {
+      fPSTimeStamp += interval;
+      callback(fPSTimeStamp);
+    }
+    requestId = requestAnimationFrame(loopCallback);
+  })();
+
+  /**
+   * Returns the timestamp relative to the navigationStart attribute of the 
+   * PerformanceTiming interface
+   * @return {Number} - DOMHighResTimeStamp
+   */
+  return requestId;
+}
+
+/**
+ *  volve - Tiny, Performant Debounce and Throttle Functions,
+ *     License:  MIT
+ *      Copyright Julien Etienne 2016 All Rights Reserved.
+ *        github:  https://github.com/julienetie/volve
+ *‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+ */
+
+/**
+ * Date.now polyfill.
+ * {@link https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date/now}
+ */
+if (!Date.now) {
+    Date.now = function now() {
+        return new Date().getTime();
+    };
+}
+
+var volve = {
+    /**
+     * Throttle a function call during repetiton.
+     * @param {Function} - Callback function.
+     * @param {Number}   - Limit in milliseconds.
+     * @return {Function} - The throttle function. 
+     */
+    throttle: function throttle(callback, limit) {
+        var lastCallTime;
+        return function (parameters) {
+            var currentCallTime = Date.now();
+            if (!lastCallTime || currentCallTime > lastCallTime + limit) {
+                callback(parameters);
+                lastCallTime = currentCallTime;
+            }
+        };
+    },
+
+
+    // !!The two functions are not to be refactored!!
+
+    /**
+     * Debounce a function call during repetiton.
+     * @param {Function} - Callback function.
+     * @param {Number}   - Delay in milliseconds.
+     * @return {Function} - The debounce function. 
+     */
+    debounce: function debounce(callback, delay) {
+        var lastCallTime;
+        return function (parameters) {
+            var currentCallTime = Date.now();
+            if (!lastCallTime || currentCallTime - lastCallTime > delay) {
+                callback(parameters);
+                lastCallTime = currentCallTime;
+            }
+        };
+    }
+};
+
+var request = window.requestAnimationFrame; //TODO replace in code.
+var cancel = window.cancelAnimationFrame; //TODO replace in code.
+var self = window;
+var store = {};
+var start;
+
+/**
+ * An Alternative to setTimeout using requestAnimationFrame
+ * @param  {Function} handler
+ * @param  {Number}   delay - In milisectonds 
+ * @return {Number}   time lapse
+ */
+function requestTimeout(handler, delay) {
+    start = Date.now();
+
+    function increment(constant) {
+        store.k = !store.k ? constant : null;
+        return store.k += 1;
+    }
+
+    function loop() {
+        store.delta = Date.now() - start;
+        store.callHandler = store.delta >= delay ? handler.call() : request(loop);
+    }
+
+    request(loop);
+    return increment(0);
+}
+
+/**
+ * A wrapper for the handler using the window context
+ */
+function handlerCallback(handler, delay, incept) {
+    handler.apply(self, handler, delay, incept);
+}
+
+/**
+ * resizilla function
+ * @public
+ * @param  {Function | Object} optionsHandler The handler or options as an 
+ * object literal.
+ * @param  {Number} delay          Delay in MS
+ * @param  {Boolean} incept        Incept from start of delay or till the end.
+ */
+function resizilla(optionsHandler, delay, incept) {
+    var options = {};
+    resizilla.options = options;
+
+    // Defaults
+    options.orientationChange = true;
+    options.useCapture = true;
+    options.incept = false;
+
+    if (optionsHandler.constructor === {}.constructor) {
+        options.handler = optionsHandler.handler;
+        options.delay = optionsHandler.delay;
+        options.incept = optionsHandler.incept;
+        options.orientationChange = optionsHandler.orientationChange;
+        options.useCapture = optionsHandler.useCapture;
+    } else {
+        options.handler = optionsHandler;
+        options.delay = delay;
+        options.incept = typeof options.incept === 'undefined' ? options.incept : incept;
+    }
+
+    function debounce(handler, delay, incept) {
+        var timeout;
+
+        return function () {
+            var lastCall = function lastCall() {
+                timeout = 0;
+                if (!incept) {
+                    handlerCallback(handler, delay, incept);
+                }
+            };
+
+            store.instant = incept && !timeout;
+            cancel(timeout);
+            timeout = requestTimeout(lastCall, delay);
+
+            if (store.instant) {
+                handlerCallback(handler, delay, incept);
+            }
+        };
+    }
+
+    function addWindowEvent(handler) {
+        self.addEventListener('resize', handler, options.useCapture);
+    }
+
+    addWindowEvent(debounce(options.handler, options.delay, options.incept));
+
+    if (options.orientationChange) {
+        self.addEventListener('orientationchange', options.handler, options.useCapture);
+    }
+}
+
+/**
+ * Remove all or one of the event listeners
+ * @param  {String} type.
+ */
+resizilla.destroy = function (type) {
+    if (!type || type === 'all') {
+        window.removeEventListener('resize', this.options.handler, this.options.useCapture);
+        window.removeEventListener('orientationchange', this.options.handler, this.options.useCapture);
+    } else {
+        window.removeEventListener(type, this.options.handler, this.options.useCapture);
+    }
+};
+
+var $4d = {
+    windowResize: resizilla,
+    debounce: volve.debounce,
+    throttle: volve.throttle,
+    once: once,
+    timeout: setAnimationFrame,
+    interval: setAnimationInterval,
+    request: requestFrame('request'),
+    cancel: requestFrame('cancel'),
+    requestNative: function requestNative() {
+        requestFrame('native');
+    }
+};
 
 return $4d;
 
