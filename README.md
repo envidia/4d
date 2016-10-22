@@ -8,14 +8,14 @@
 
 #### 4d is a set of efficient timing functions. Click below for documentation.
 
-- [once](https://github.com/julienetie/4d/wiki)
-- [interval](https://github.com/julienetie/4d/wiki)
-- [timeout](https://github.com/julienetie/4d/wiki)
-- [request](https://github.com/julienetie/4d/wiki)
 - [cancel](https://github.com/julienetie/4d/wiki)
-- [requestNative](https://github.com/julienetie/4d/wiki)
 - [debounce](https://github.com/julienetie/4d/wiki)
+- [interval](https://github.com/julienetie/4d/wiki)
+- [once](https://github.com/julienetie/4d/wiki)
+- [request](https://github.com/julienetie/4d/wiki)
+- [requestNative](https://github.com/julienetie/4d/wiki)
 - [throttle](https://github.com/julienetie/4d/wiki)
+- [timeout](https://github.com/julienetie/4d/wiki)
 - [windowResize](https://github.com/julienetie/4d/wiki)
 
 ## Why?
@@ -65,5 +65,5 @@
 [Click here to see the demo]()
 
 
-
-
+[MIT](https://github.com/julienetie/hypertext/blob/master/LICENSE)
+Copyright (c) 2016 Julien Etienne
