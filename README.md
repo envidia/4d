@@ -9,15 +9,15 @@
 
 #### 4d is a set of efficient timing functions. Click below for documentation.
 
-- [cancel](https://github.com/julienetie/4d/wiki)
-- [debounce](https://github.com/julienetie/4d/wiki)
-- [interval](https://github.com/julienetie/4d/wiki)
-- [once](https://github.com/julienetie/4d/wiki)
-- [request](https://github.com/julienetie/4d/wiki)
-- [requestNative](https://github.com/julienetie/4d/wiki)
-- [throttle](https://github.com/julienetie/4d/wiki)
-- [timeout](https://github.com/julienetie/4d/wiki)
-- [windowResize](https://github.com/julienetie/4d/wiki)
+- [cancel](https://github.com/julienetie/request-frame/blob/master/README.md)
+- [debounce](https://github.com/julienetie/volve/blob/master/README.md)
+- [interval](https://github.com/julienetie/set-animation-interval/blob/master/README.md)
+- [once](https://github.com/julienetie/run-once/blob/master/README.md)
+- [request](https://github.com/julienetie/request-frame/blob/master/README.md)
+- [requestNative](https://github.com/julienetie/request-frame/blob/master/README.md)
+- [throttle](https://github.com/julienetie/volve/blob/master/README.md)
+- [timeout](https://github.com/julienetie/set-animation-frame)
+- [windowResize](https://github.com/julienetie/resizilla/blob/master/README.md)
 
 ## Why?
 - Better performance for modern browsers and mobile devices.
