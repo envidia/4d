@@ -1,6 +1,6 @@
 {
   "name": "4d",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Performance Timing Functions for UI Development",
   "main": "dist/4d.js",
   "jsnext:main": "dist/4d.es.js",
