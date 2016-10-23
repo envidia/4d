@@ -1,7 +1,8 @@
+
 <p align="center">
 <img style="text-align: center;" src="http://imageshack.com/a/img922/4690/kapZA1.png">
 </p>
-
+<sub>en-GB</sub>
 ### Performance Timing Functions for UI Development
 
 # 4d
@@ -20,13 +21,13 @@
 
 ## Why?
 - Better performance for modern browsers and mobile devices.
-- Features a comprehensive fix for legacy compatability issues with RAF.
+- Features a comprehensive fix for legacy compatibility issues with RAF.
 - Avoids setTimeout and setInterval unlike the majority of JavaScript timing functions.
-- Proritises browsers and mobile devices over node.
+- Prioritise timing for browsers and mobile devices over node.
 - Limit function calls, set FPS, delay and loop to the next frame to be rendered.
 - Features a comprehensive windowResize method that resolves mobile issues.
 - Features a media queries detection API with built in custom events (Coming soon)
-- Ability to mock jitterty/ random function calls e.g. emulate bad performance. (coming soon)
+- Ability to mock jittery/ random function calls e.g. emulate bad performance. (coming soon)
 - Less than **2kb gzip size** _(will never exceed a 4kb gzip size)_
 
 
@@ -38,8 +39,8 @@
 
 _(4d === fourth dimension === t)_
 
-## Compatability
-4d Is atleast compatible with IE8 +
+## Compatibility
+4d Is at least compatible with IE8 +
 
 
 
@@ -61,7 +62,7 @@ _(4d === fourth dimension === t)_
 `src="4d.js'`
 
 ## Demo
-- [Most 4d functions will only work in browser enviroments, not Node or the Dev Tools console]
+- [Most 4d functions will only work in browser environments, not Node or the Dev Tools console]
 
 [Click here to see the demo]()
 
