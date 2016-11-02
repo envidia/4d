@@ -8,7 +8,7 @@
 
 #### 4d is a set of efficient timing functions. Click below for documentation.
 
-- [cancel](https://github.com/julienetie/request-frame/blob/master/README.md)
+- [cancel](https://github.com/envidia/4d/blob/master/README.md#cancel)
 - [debounce](https://github.com/julienetie/volve/blob/master/README.md)
 - [interval](https://github.com/julienetie/set-animation-interval/blob/master/README.md)
 - [once](https://github.com/julienetie/run-once/blob/master/README.md)
