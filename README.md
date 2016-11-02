@@ -69,21 +69,21 @@ _(4d === fourth dimension === t)_
 
 ## cancel()
 
-#### _Syntax:
+#### _Syntax_:
 `cancel(requestID)`
 
-#### _Parameters:
+#### _Parameters_:
 - requestID: The ID value returned by the call to window.requestAnimationFrame() that requested the callback.
 
-#### _In place of:
+#### _In place of_:
 `window.cancelAnimationFrame()`
 
-#### _Summary:
+#### _Summary_:
 Cancels an animation frame request previously scheduled through a call to window.requestAnimationFrame().
 
 The most comprehensive polyfill for **cancelAnimationFrame**. Assigning cancel avoids mutation of the native object to prevent overriding of cancelAnimationFrame implementations that may be used within other libraries.
 
-#### _Usage:
+#### _Usage_:
 
 ```javascript
 import { cancel } from '4d'
@@ -94,11 +94,11 @@ cancel(id)
 ```
 See [more](https://github.com/julienetie/request-frame).  
 
-#### _Browser Support: 
+#### _Browser Support_: 
 - Internet Explorer 5+
 - See [more](https://github.com/julienetie/request-frame#browsers-tested--passing)
 
-#### _Core library:
+#### _Core library_:
 [Request Frame](https://github.com/julienetie/request-frame).
 
 
