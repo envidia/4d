@@ -2,7 +2,6 @@
 <p align="center">
 <img style="text-align: center;" src="http://imageshack.com/a/img922/4690/kapZA1.png">
 </p>
-<sub>en-GB</sub>
 ### Performance Timing Functions for UI Development
 
 # 4d
@@ -65,6 +64,30 @@ _(4d === fourth dimension === t)_
 - [Most 4d functions will only work in browser environments, not Node or the Dev Tools console]
 
 [Click here to see the demo]()
+
+# The API
+
+## Cancel
+
+The most comprehensive polyfill for **cancelAnimationFrame**. Assigning cancel avoids mutation of the native object to prevent overriding of cancelAnimationFrame implementations used in libraries that provide their own polyfills or unique behaviors.
+
+- Example:
+```javascript
+import { cancel } from '4d';
+
+// id === some requestAnimationFrame ID.
+
+cancel(id);
+```
+
+- Browser Support: 
+Internet Explorer 5+
+
+- Core library
+[Request Frame](https://github.com/julienetie/request-frame)
+
+
+
 
 
 [MIT](https://github.com/envidia/4d/blob/master/LICENSE)
