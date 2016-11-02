@@ -67,23 +67,35 @@ _(4d === fourth dimension === t)_
 
 # The API
 
-## Cancel
+## cancel()
 
-The most comprehensive polyfill for **cancelAnimationFrame**. Assigning cancel avoids mutation of the native object to prevent overriding of cancelAnimationFrame implementations used in libraries that provide their own polyfills or unique behaviors.
+#### Summary:
+Cancels an animation frame request previously scheduled through a call to window.requestAnimationFrame().
 
-- Example:
+#### 
+
+The most comprehensive polyfill for **cancelAnimationFrame**. Assigning cancel avoids mutation of the native object to prevent overriding of cancelAnimationFrame implementations that may be used within other libraries.
+
+#### Syntax:
+`cancel(requestID)`
+
+#### In place of:
+`window.cancelAnimationFrame()`
+
+#### Example:
+
 ```javascript
-import { cancel } from '4d';
+import { cancel } from '4d'
 
 // id === some requestAnimationFrame ID.
 
-cancel(id);
+cancel(id)
 ```
 
-- Browser Support: 
+#### Browser Support: 
 Internet Explorer 5+
 
-- Core library
+#### Core library:
 [Request Frame](https://github.com/julienetie/request-frame)
 
 
