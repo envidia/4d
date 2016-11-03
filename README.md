@@ -8,11 +8,11 @@
 
 #### 4d is a set of efficient timing functions. Click below for documentation.
 
-- [cancel](https://github.com/envidia/4d/blob/master/README.md#cancel)
+- [cancel](https://github.com/envidia/4d/#cancel)
 - [debounce](https://github.com/julienetie/volve/blob/master/README.md)
 - [interval](https://github.com/julienetie/set-animation-interval/blob/master/README.md)
 - [once](https://github.com/julienetie/run-once/blob/master/README.md)
-- [request](https://github.com/envidia/4d/blob/master/README.md#request)
+- [request](https://github.com/envidia/4d/#request)
 - [requestNative](https://github.com/julienetie/request-frame/blob/master/README.md)
 - [throttle](https://github.com/julienetie/volve/blob/master/README.md)
 - [timeout](https://github.com/julienetie/set-animation-frame)
