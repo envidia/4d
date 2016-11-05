@@ -1,7 +1,7 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.$4d = factory());
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.$4d = factory());
 }(this, (function () { 'use strict';
 
 /**
@@ -546,18 +546,18 @@ resizilla.destroy = function (type) {
 };
 
 var $4d = {
-    windowResize: resizilla,
-    debounce: debounce,
-    throttle: throttle,
-    once: once,
-    setDelay: setAnimationFrame,
-    clearDelay: clearAnimationFrame,
-    interval: setAnimationInterval,
-    request: requestFrame$1('request'),
-    cancel: requestFrame$1('cancel'),
-    requestNative: function requestNative() {
-        requestFrame$1('native');
-    }
+	windowResize: resizilla,
+	debounce: debounce,
+	throttle: throttle,
+	once: once,
+	setDelay: setAnimationFrame,
+	clearDelay: clearAnimationFrame,
+	interval: setAnimationInterval,
+	request: requestFrame$1('request'),
+	cancel: requestFrame$1('cancel'),
+	requestNative: function requestNative() {
+		requestFrame$1('native');
+	}
 };
 
 return $4d;
