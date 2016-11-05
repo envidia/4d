@@ -2,18 +2,17 @@
 <p align="center">
 <img style="text-align: center;" src="http://imageshack.com/a/img922/4690/kapZA1.png">
 </p>
-<sub>en-GB</sub>
 ### Performance Timing Functions for UI Development
 
 # 4d
 
 #### 4d is a set of efficient timing functions. Click below for documentation.
 
-- [cancel](https://github.com/julienetie/request-frame/blob/master/README.md)
+- [cancel](https://github.com/envidia/4d/#cancel)
 - [debounce](https://github.com/julienetie/volve/blob/master/README.md)
 - [interval](https://github.com/julienetie/set-animation-interval/blob/master/README.md)
 - [once](https://github.com/julienetie/run-once/blob/master/README.md)
-- [request](https://github.com/julienetie/request-frame/blob/master/README.md)
+- [request](https://github.com/envidia/4d/#request)
 - [requestNative](https://github.com/julienetie/request-frame/blob/master/README.md)
 - [throttle](https://github.com/julienetie/volve/blob/master/README.md)
 - [timeout](https://github.com/julienetie/set-animation-frame)
@@ -66,6 +65,89 @@ _(4d === fourth dimension === t)_
 
 [Click here to see the demo]()
 
+# The 4d API
+
+## cancel()
+
+#### _Syntax_:
+`cancel(requestID)`
+
+#### _Parameters_:
+- requestID: The ID value returned by the call to window.requestAnimationFrame() that requested the callback.
+
+#### _In place of_:
+`window.cancelAnimationFrame()`
+
+#### _Summary_:
+The most comprehensive polyfill for **cancelAnimationFrame**. _cancel()_ avoids mutation of the native object to prevent overriding of cancelAnimationFrame implementations that may be used within other libraries.
+
+_cancel()_ cancels an animation frame request previously scheduled through a call to request() or window.requestAnimationFrame().
+
+
+
+#### _Usage_:
+
+```javascript
+import { cancel } from '4d'
+
+// id === some requestAnimationFrame ID.
+
+cancel(id)
+```
+See [more](https://github.com/julienetie/request-frame).  
+
+#### _Browser Support_: 
+- Internet Explorer 5+
+- See [more](https://github.com/julienetie/request-frame#browsers-tested--passing)
+
+#### _Core library_:
+[Request Frame](https://github.com/julienetie/request-frame).
+
+_______________
+_______________
+
+## request()
+
+#### _Syntax_:
+`request(callback[DOMHighResTimeStamp])`
+
+#### _Parameters_:
+- callback: A parameter specifying a function to call when it's time to update your animation for the next repaint. The callback has one single argument, a DOMHighResTimeStamp, which indicates the current time (the time returned from Performance.now() ) for when requestAnimationFrame starts to fire callbacks.
+
+#### _In place of_:
+`window.requestAnimationFrame(callback[DOMHighResTimeStamp])`
+
+#### _Summary_:
+The most comprehensive polyfill for **requestAnimationFrame**. _request()_ avoids mutation of the native object to prevent overriding of requestAnimationFrame implementations that may be used within other libraries.
+
+_request()_ tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint.
+
+#### _Usage_:
+
+```javascript
+import { request } from '4d'
+
+// Animate.
+const animate = (highResTimestamp) => {
+  request(animate);
+  // Animate something...
+}
+
+// Start the animation on the next available frame.
+request(animate);
+```
+
+See [more](https://github.com/julienetie/request-frame).  
+
+#### _Browser Support_: 
+- Internet Explorer 5+
+- See [more](https://github.com/julienetie/request-frame#browsers-tested--passing)
+
+#### _Core library_:
+[Request Frame](https://github.com/julienetie/request-frame).
+
+_______________
+_______________
 
 [MIT](https://github.com/envidia/4d/blob/master/LICENSE)
 
