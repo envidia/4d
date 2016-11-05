@@ -45,26 +45,18 @@
     "babel-preset-es2015-rollup": "^1.2.0",
     "browserify": "^13.1.0",
     "chai": "*",
-    "gulp": "^3.9.1",
-    "gulp-bump": "*",
-    "gulp-concat": "*",
-    "gulp-es-next": "*",
-    "gulp-header": "*",
-    "gulp-rename": "*",
     "http-server": "*",
-    "js-size": "^2.0.0",
-    "requirejs": "*",
     "rollup": "*",
     "rollup-plugin-babel": "*",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-watch": "*"
   },
   "dependencies": {
-    "request-frame": "^1.5.3",
-    "resizilla": "^0.6.2",
-    "run-once": "^1.0.0",
-    "set-animation-frame": "^0.1.1",
-    "set-animation-interval": "^0.0.2",
-    "volve": "^0.0.2"
+    "request-frame": "^*",
+    "resizilla": "^*",
+    "run-once": "^*",
+    "set-animation-frame": "^*",
+    "set-animation-interval": "^*",
+    "volve": "^*"
   }
 }

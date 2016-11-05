@@ -1,17 +1,18 @@
 import requestFrame from 'request-frame';
 import once from 'run-once';
-import timeout from 'set-animation-frame';
+import { setAnimationFrame, clearAnimationFrame } from 'set-animation-frame';
 import interval from 'set-animation-interval';
-import volve from 'volve';
+import {debounce, throttle} from 'volve';
 import windowResize from '../resizilla.es';
 
 
 const $4d = {
     windowResize,
-    debounce: volve.debounce,
-    throttle: volve.throttle,
+    debounce,
+    throttle,
     once,
-    timeout,
+    setDelay: setAnimationFrame,
+    clearDelay: clearAnimationFrame,
     interval,
     request: requestFrame('request'),
     cancel: requestFrame('cancel'),

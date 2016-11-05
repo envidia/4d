@@ -8,7 +8,7 @@
  * @param  {String} type - request | cancel | native.
  * @return {Function} Timing function.
  */
-function requestFrame(type) {
+function requestFrame$1(type) {
     // The only vendor prefixes required.
     var vendors = ['moz', 'webkit'];
 
@@ -245,13 +245,42 @@ function once(reference) {
  */
 
 /**
+ * clearAnimationFrame allows you to
+ * interrupt setAnimationFrame and cancel
+ * further loops. Similar to clearTimeout.
+ * @param {Number} clearId
+ */
+var clearAnimationFrame = function clearAnimationFrame(id) {
+  if (setAnimationFrame[id] === true) {
+    delete setAnimationFrame[id];
+  }
+};
+
+/**
  * @param {Function} callback
  * @param {Number} delay
  */
 var setAnimationFrame = function setAnimationFrame(callback, delay) {
   var duration = 0;
   var terminate = false;
-  var requestId;
+  var requestId = void 0;
+  var canceId = Date.now();
+
+  /**
+   * Polyfill requestAnimationFrame & cancelAnimationFrame using
+   * request-frame if available.
+   */
+  var hasRequestFrame = typeof requestFrame === 'function';
+  var request = hasRequestFrame ? requestFrame('request') : requestAnimationFrame;
+  var cancel = hasRequestFrame ? requestFrame('cancel') : cancelAnimationFrame;
+
+  /**
+   * The cancelId is a unique identifier for the execution.
+   * It is used because it is not possible to calculate
+   * the request Id time as this will always be an approximate 
+   * value.
+   */
+  setAnimationFrame[canceId] = true;
 
   /**
    * The duration increments until it satisfys the delay.
@@ -259,7 +288,7 @@ var setAnimationFrame = function setAnimationFrame(callback, delay) {
    * is returned. Whilst unsatisfied requestAnimationFrame
    * calls the loop with the incremented timestamp
    */
-  function loop(timestamp) {
+  var loop = function loop(timestamp) {
     if (!duration) {
       duration = timestamp;
     }
@@ -268,9 +297,13 @@ var setAnimationFrame = function setAnimationFrame(callback, delay) {
       if (callback) callback(timestamp);
       terminate = true;
     } else {
-      requestId = requestAnimationFrame(loop);
+      requestId = request(loop);
+
+      if (!setAnimationFrame[canceId]) {
+        cancel(requestId);
+      }
     }
-  }
+  };
 
   /**
    * Start the loop. 
@@ -278,11 +311,10 @@ var setAnimationFrame = function setAnimationFrame(callback, delay) {
   loop(1);
 
   /**
-   * Returns the timestamp relative to the navigationStart attribute of the 
-   * PerformanceTiming interface
-   * @return {Number} - DOMHighResTimeStamp
+   * Returns the unique property name of the execution.
+   * @return {Number} - milliseconds.
    */
-  return requestId;
+  return canceId;
 };
 
 /**
@@ -343,44 +375,59 @@ if (!Date.now) {
     };
 }
 
-var volve = {
-    /**
-     * Throttle a function call during repetiton.
-     * @param {Function} - Callback function.
-     * @param {Number}   - Limit in milliseconds.
-     * @return {Function} - The throttle function. 
-     */
-    throttle: function throttle(callback, limit) {
-        var lastCallTime;
-        return function (parameters) {
-            var currentCallTime = Date.now();
-            if (!lastCallTime || currentCallTime > lastCallTime + limit) {
+/**
+ * Throttle a function call during repetiton.
+ * @param {Function} - Callback function.
+ * @param {Number}   - Limit in milliseconds.
+ * @return {Function} - The throttle function. 
+ */
+function throttle(callback, limit) {
+    var lastCallTime = void 0;
+    return function (parameters) {
+        var currentCallTime = Date.now();
+        if (!lastCallTime || currentCallTime > lastCallTime + limit) {
+            callback(parameters);
+            lastCallTime = currentCallTime;
+        }
+    };
+}
+
+/**
+ * Debounce a function call during repetiton.
+ * @param {Function}  callback - Callback function.
+ * @param {Number}    delay    - Delay in milliseconds.
+ * @param {Boolean}   lead  - Leading or trailing.
+ * @return {Function} - The debounce function. 
+ */
+function debounce(callback, delay, lead) {
+    var debounceRange = 0;
+    var currentTime;
+    var lastCall;
+    var setDelay;
+    var timeoutId;
+
+    var call = function call(parameters) {
+        callback(parameters);
+    };
+
+    return function (parameters) {
+        if (lead) {
+            currentTime = Date.now();
+            if (currentTime > debounceRange) {
                 callback(parameters);
-                lastCallTime = currentCallTime;
             }
-        };
-    },
-
-
-    // !!The two functions are not to be refactored!!
-
-    /**
-     * Debounce a function call during repetiton.
-     * @param {Function} - Callback function.
-     * @param {Number}   - Delay in milliseconds.
-     * @return {Function} - The debounce function. 
-     */
-    debounce: function debounce(callback, delay) {
-        var lastCallTime;
-        return function (parameters) {
-            var currentCallTime = Date.now();
-            if (!lastCallTime || currentCallTime - lastCallTime > delay) {
-                callback(parameters);
-                lastCallTime = currentCallTime;
-            }
-        };
-    }
-};
+            debounceRange = currentTime + delay;
+        } else {
+            /**
+             * setTimeout is only used with the trail option.
+             */
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {
+                call(parameters);
+            }, delay);
+        }
+    };
+}
 
 var request = window.requestAnimationFrame; //TODO replace in code.
 var cancel = window.cancelAnimationFrame; //TODO replace in code.
@@ -494,15 +541,16 @@ resizilla.destroy = function (type) {
 
 var $4d = {
     windowResize: resizilla,
-    debounce: volve.debounce,
-    throttle: volve.throttle,
+    debounce: debounce,
+    throttle: throttle,
     once: once,
-    timeout: setAnimationFrame,
+    setDelay: setAnimationFrame,
+    clearDelay: clearAnimationFrame,
     interval: setAnimationInterval,
-    request: requestFrame('request'),
-    cancel: requestFrame('cancel'),
+    request: requestFrame$1('request'),
+    cancel: requestFrame$1('cancel'),
     requestNative: function requestNative() {
-        requestFrame('native');
+        requestFrame$1('native');
     }
 };
 

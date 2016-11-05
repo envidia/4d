@@ -4,7 +4,7 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 export default {
     moduleName: '$4d',
     entry: './src/4d.js',
-	    plugins: [babel({
+	plugins: [babel({
 	        babelrc: false,
 	        presets: 'es2015-rollup'
 	    }),
